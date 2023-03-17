@@ -1,0 +1,97 @@
+Using this .txt file for other stuff used while working on the project, including stuff that could be useful if we're transfering to Dan's server later (e.g., changing permissions for specific people)
+
+
+
+~~~~Changing permissions for specific people~~~~ (Nishita already did this)
+https://docs.alliancecan.ca/wiki/Sharing_data#Sharing_Access_with_an_Individual
+$ setfacl -d -m u:ajauwena:rwX [folder]
+$ setfacl -R -m u:ajauwena:rwX [folder]
+$ setfacl -d -m u:olusegun:rwX .
+$ setfacl -R -m u:olusegun:rwX .
+
+Viewing which users have permissions
+$ getfacl .
+
+~~~~Installing packages~~~~
+Pandas module and other modules weren't working on computecanada, but figured it out. In command line: 
+$ module load python/3.8.10
+$ pip3.7 install pandas         # Chose the first option for which module
+
+For KNN Classifier script that Abel made:
+$ module load python/3.8.10
+$ pip3.7 install matplotlib
+$ pip3.7 install sklearn
+
+For other modules we might need to load, type avail_wheels in command line to see which ones are available
+$ avail_wheels
+
+
+
+
+
+
+
+
+
+
+
+
+####### Code Graveyard RIP ########
+Like this is unfiltered garbage here, I'm not cleaning it up or commenting it but it's here in case we need it
+GitHub URL to .csv
+dataset_url_path = 'https://raw.githubusercontent.com/nishitas1007/ANSC6100_InsurancePremiums/main/insurance_dataset.csv'
+
+Assigning the .csv in the URL to a dataframe 
+insurance_premium_df = pandas.read_csv('/scratch/nishitas/ANSC6100_Project/insurance_dataset.csv')
+
+Use the info() function to see information about our data frame
+insurance_premium_df.info()
+There are no "null" values in any of the 7 columns of our data frame – so we don't need to remove any NAs
+
+##print(insurance_premium_df)
+
+import csv
+with open(insurance_dataset.csv,'r')
+
+
+
+Another way to make the list of lists when importing the csv if pandas module isn't working: https://indeepdata.com/blog/how-to-read-csv/#mcetoc_1gcrgtbd53 
+
+def load_csv(filename):
+    data = list()
+    # Open file in read mode
+    file = open(filename,"r")
+    # Reading file
+    lines = reader(file)
+    csv_reader = reader(file)
+    for row in csv_reader:
+        if not row:
+            continue
+        data.append(row)
+
+    return data
+
+if __name__ == "__main__":
+    # Path of the dataset
+    filename = "insurance_dataset.csv"
+    data = load_csv(filename)
+
+    # Printing out the datapoints (i.e., rows of data)
+    for row in data:
+        print(row, end = "\n")
+
+load_csv(insurance_dataset.csv)
+
+
+
+Same thing as above but shorter. Creates list of lists; each item in list_of_rows_in_csv is a list, which is a row of data
+with open('insurance_dataset.csv','r') as file:
+    list_of_rows_in_csv=[]
+    my_reader = csv.reader(file, delimiter=',')
+    for row in my_reader:
+        list_of_rows_in_csv.append(row)
+        # print(row)
+
+print(len(list_of_rows_in_csv)) # 1339 = header row + 1338 data rows
+# RM later: prints first 10 rows of csv (each row is a list)
+print(list_of_rows_in_csv[:11])
